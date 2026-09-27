@@ -25,7 +25,7 @@ end_date = st.sidebar.date_input("End Date", pd.to_datetime('2025-01-01'))
 try:
     data = yf.download(selected_tickers + [market_ticker], start=start_date, end=end_date)['Close']
     returns = data.pct_change().dropna()
-    annual_returns = returns.resample('Y').apply(lambda x: (x + 1).prod() - 1)
+    annual_returns = returns.resample('YE').apply(lambda x: (x + 1).prod() - 1)
     if annual_returns.empty:
         st.error("No data available for the selected date range.")
     else:
